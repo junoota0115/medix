@@ -31,15 +31,17 @@ class TweetsController < ApplicationController
 
   private
   def tweet_params
-    params.require(:tweet).permit(:name, :image, :text)
+    params.require(:tweet).permit(:name, :image, :text).merge(user_id: current_user.id)
   end
 
   def set_tweet
     @tweet = Tweet.find(params[:id])
-end
+  end
+
 def move_to_index
   unless user_signed_in?
     redirect_to action: :index
   end
 end
+
 end
